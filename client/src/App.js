@@ -68,8 +68,8 @@ function App() {
                         <Route path="/register" element={<RegisterPage setToken={setToken} />} />
                         <Route path="/login" element={<LoginPage setToken={setToken} />} />
                         <Route path="/plans" element={<PlanPage token={token} />} />
-                        <Route path="/chat" element={<ChatPage />} />
-                        <Route path="/onboarding" element={<MultiStepForm />} />
+                        <Route path="/chat" element={<ChatPage token={token} />} /> {/* Added token prop */}
+                        <Route path="/onboarding" element={<MultiStepForm token={token} />} /> {/* Pass token prop */}
                     </Routes>
                 </div>
             </Router>

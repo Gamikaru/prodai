@@ -40,6 +40,7 @@ class Plan(Base):
     description = Column(String)
     created_at = Column(DateTime, nullable=False)
     due_date = Column(DateTime)
+    is_completed = Column(Boolean, default=False)  # Add this line
 
     owner = relationship("User", back_populates="plans")
 

@@ -1,18 +1,25 @@
 import React, { useContext } from 'react';
 import { UserProfileContext } from '../../contexts/UserProfileContext';
 
-const FormStep1 = ({ nextStep }) => {
+const FormStep1 = ({ nextStep, handleChange, values }) => { // Added handleChange and values props
     const { userProfile } = useContext(UserProfileContext);
+
+    const onSubmit = (e) => {
+        e.preventDefault(); // Prevent default form submission
+        nextStep();
+    };
 
     return (
         <div>
             <h2 className="text-xl font-bold mb-4">Step 1: Basic Information</h2>
-            <form onSubmit={nextStep}>
+            <form onSubmit={onSubmit}>
                 <div className="mb-4">
                     <label className="block text-gray-700">First Name</label>
                     <input
                         type="text"
-                        defaultValue={userProfile.firstName}
+                        name="firstName"
+                        value={values.firstName} // Changed from defaultValue to value
+                        onChange={handleChange('firstName')} // Added onChange handler
                         className="border p-2 rounded w-full"
                     />
                 </div>
@@ -20,7 +27,9 @@ const FormStep1 = ({ nextStep }) => {
                     <label className="block text-gray-700">Last Name</label>
                     <input
                         type="text"
-                        defaultValue={userProfile.lastName}
+                        name="lastName"
+                        value={values.lastName} // Changed from defaultValue to value
+                        onChange={handleChange('lastName')} // Added onChange handler
                         className="border p-2 rounded w-full"
                     />
                 </div>

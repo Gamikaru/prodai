@@ -1,7 +1,8 @@
+
+# filepath: /Ubuntu/home/gamikarudev/projects/pyhton-projects/my-planner-ai-app/server/schemas.py
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from typing import Optional, Dict
 from datetime import datetime
-from typing import Dict
 
 import logging
 
@@ -11,7 +12,7 @@ logger.debug("Loading Pydantic schemas.")
 
 class UserCreate(BaseModel):
     email: EmailStr
-    password: str
+    password:  str
 
 class UserLogin(BaseModel):
     email: EmailStr
@@ -36,6 +37,10 @@ class PlanOut(BaseModel):
     description: Optional[str]
     created_at: Optional[datetime]
     due_date: Optional[datetime]
+    is_completed: bool = False  # Add this line
+
+    class Config:
+        orm_mode = True
 
 class QuestionnaireResponseBase(BaseModel):
     responses: Dict[str, str]
@@ -50,3 +55,7 @@ class QuestionnaireResponseOut(QuestionnaireResponseBase):
 
     class Config:
         orm_mode = True
+
+# Remove the standalone Config class
+# class Config:
+#     orm_mode = True

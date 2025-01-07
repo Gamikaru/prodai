@@ -207,5 +207,5 @@ export default function ChatPage({ token }) {
 }
 
 ChatPage.propTypes = {
-    token: PropTypes.string.isRequired,
+    token: PropTypes.string.isRequired, // Ensure PropTypes are defined
 };
