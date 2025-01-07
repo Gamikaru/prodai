@@ -1,8 +1,6 @@
-import React, { useContext } from 'react';
-import { UserProfileContext } from '../../contexts/UserProfileContext';
+import React from 'react';
 
 const FormStep1 = ({ nextStep, handleChange, values }) => { // Added handleChange and values props
-    const { userProfile } = useContext(UserProfileContext);
 
     const onSubmit = (e) => {
         e.preventDefault(); // Prevent default form submission

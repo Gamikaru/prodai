@@ -1,7 +1,7 @@
 import logging from 'loglevel';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import api from '../services/api'; // Adjust the import path as necessary
+import api from '../services/api';
 
 const logger = logging.getLogger("RegisterPage");
 logger.setLevel('debug');
@@ -25,13 +25,13 @@ export default function RegisterPage({ setToken }) {
     };
 
     return (
-        <div className="max-w-md mx-auto bg-white p-6 rounded shadow">
-            <h2 className="text-xl font-bold mb-4">Register</h2>
+        <div className="max-w-md mx-auto bg-white dark:bg-trueGray-900 p-6 rounded-md shadow text-gray-800 dark:text-gray-100 transition-all">
+            <h2 className="text-2xl font-bold mb-4">Register</h2>
             <form onSubmit={handleRegister} className="flex flex-col gap-4">
                 <input
                     type="email"
                     placeholder="Email"
-                    className="border p-2 rounded"
+                    className="border border-gray-300 dark:border-trueGray-700 p-2 rounded-md bg-white dark:bg-trueGray-800 text-gray-800 dark:text-gray-100 focus:outline-none"
                     value={email}
                     onChange={(e) => {
                         logger.debug("Email input changed:", e.target.value);
@@ -41,14 +41,17 @@ export default function RegisterPage({ setToken }) {
                 <input
                     type="password"
                     placeholder="Password"
-                    className="border p-2 rounded"
+                    className="border border-gray-300 dark:border-trueGray-700 p-2 rounded-md bg-white dark:bg-trueGray-800 text-gray-800 dark:text-gray-100 focus:outline-none"
                     value={password}
                     onChange={(e) => {
                         logger.debug("Password input changed.");
                         setPassword(e.target.value);
                     }}
                 />
-                <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                <button
+                    type="submit"
+                    className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none"
+                >
                     Register
                 </button>
             </form>

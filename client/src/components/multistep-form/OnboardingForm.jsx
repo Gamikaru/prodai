@@ -1,5 +1,4 @@
-// client/src/components/multistep-form/OnboardingForm.jsx
-
+import { AnimatePresence, motion } from 'framer-motion';
 import logging from 'loglevel';
 import React, { useContext, useState } from 'react';
 import { UserProfileContext } from '../../contexts/UserProfileContext';
@@ -13,7 +12,7 @@ import ProgressBar from './ProgressBar';
 const logger = logging.getLogger("MultiStepForm");
 logger.setLevel('debug');
 
-const MultiStepForm = ({ token }) => { // Optional: Receive token as prop
+const MultiStepForm = ({ token }) => {
     const [currentStep, setCurrentStep] = useState(1);
     const { userProfile, setUserProfile } = useContext(UserProfileContext);
     const [formData, setFormData] = useState({
@@ -48,12 +47,11 @@ const MultiStepForm = ({ token }) => { // Optional: Receive token as prop
                 responses: formData
             }, {
                 headers: {
-                    'token': token || localStorage.getItem('token') // Use passed token or fallback
+                    'token': token || localStorage.getItem('token')
                 }
             });
             logger.info("Questionnaire submitted successfully:", response.data);
             setSubmissionSuccess(true);
-            // Optionally update userProfile with submitted data
             setUserProfile(formData);
         } catch (err) {
             logger.error("Error submitting questionnaire:", err);
@@ -77,12 +75,25 @@ const MultiStepForm = ({ token }) => { // Optional: Receive token as prop
     };
 
     return (
-        <div className="max-w-2xl mx-auto bg-white p-6 rounded shadow">
-            <h2 className="text-2xl font-bold mb-4">Onboarding Form</h2>
+        <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-3xl font-bold mb-6 text-center">Onboarding Form</h2>
             <ProgressBar currentStep={currentStep} totalSteps={3} />
-            {renderStep()}
-            {error && <p className="text-red-500 mt-4">{error}</p>}
-            {submissionSuccess && <Badge />}
+            <AnimatePresence mode="wait">
+                {submissionSuccess ? (
+                    <Badge key="badge" />
+                ) : (
+                    <motion.div
+                        key={currentStep}
+                        initial={{ opacity: 0, x: 100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -100 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        {renderStep()}
+                        {error && <p className="text-red-500 mt-4">{error}</p>}
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };

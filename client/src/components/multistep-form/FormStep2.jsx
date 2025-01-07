@@ -1,8 +1,9 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 
 const FormStep2 = ({ nextStep, prevStep, handleChange, values }) => {
     const onSubmit = (e) => {
-        e.preventDefault(); // Prevent default form submission
+        e.preventDefault();
         nextStep();
     };
 
@@ -20,8 +21,13 @@ const FormStep2 = ({ nextStep, prevStep, handleChange, values }) => {
     ];
 
     return (
-        <div>
-            <h2 className="text-xl font-bold mb-4">Step 2: Additional Information</h2>
+        <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.5 }}
+        >
+            <h2 className="text-2xl font-semibold mb-6">Step 2: Additional Information</h2>
             <form onSubmit={onSubmit}>
                 <div className="mb-4">
                     <label className="block text-gray-700">Email</label>
@@ -30,7 +36,7 @@ const FormStep2 = ({ nextStep, prevStep, handleChange, values }) => {
                         name="email"
                         value={values.email}
                         onChange={handleChange('email')}
-                        className="border p-2 rounded w-full"
+                        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         required
                     />
                 </div>
@@ -41,7 +47,7 @@ const FormStep2 = ({ nextStep, prevStep, handleChange, values }) => {
                         name="preferredLanguage"
                         value={values.preferredLanguage}
                         onChange={handleChange('preferredLanguage')}
-                        className="border p-2 rounded w-full"
+                        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         required
                     />
                 </div>
@@ -51,7 +57,7 @@ const FormStep2 = ({ nextStep, prevStep, handleChange, values }) => {
                         name="timeZone"
                         value={values.timeZone}
                         onChange={handleChange('timeZone')}
-                        className="border p-2 rounded w-full"
+                        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         required
                     >
                         <option value="" disabled>Select your time zone</option>
@@ -63,15 +69,26 @@ const FormStep2 = ({ nextStep, prevStep, handleChange, values }) => {
                     </select>
                 </div>
                 <div className="flex justify-between">
-                    <button type="button" onClick={prevStep} className="bg-gray-600 text-white px-4 py-2 rounded">
+                    <motion.button
+                        type="button"
+                        onClick={prevStep}
+                        className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                    >
                         Previous
-                    </button>
-                    <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+                    </motion.button>
+                    <motion.button
+                        type="submit"
+                        className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                    >
                         Next
-                    </button>
+                    </motion.button>
                 </div>
             </form>
-        </div>
+        </motion.div>
     );
 };
 

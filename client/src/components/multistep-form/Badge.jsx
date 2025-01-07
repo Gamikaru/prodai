@@ -1,11 +1,18 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 
 const Badge = () => {
     return (
-        <div className="badge">
-            <h3>Congratulations!</h3>
-            <p>You have completed the form and earned a badge!</p>
-        </div>
+        <motion.div
+            className="badge bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-6"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            role="alert"
+        >
+            <strong className="font-bold">Congratulations!</strong>
+            <span className="block sm:inline"> You have completed the form and earned a badge!</span>
+        </motion.div>
     );
 };
 
